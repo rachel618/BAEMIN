@@ -1,0 +1,64 @@
+plugins {
+    id 'org.springframework.boot' version '2.4.2'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+compileJava.options.encoding = 'UTF-8'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.jetbrains:annotations:22.0.0'
+
+
+    // Spring Boot Starter
+    testImplementation ('org.springframework.boot:spring-boot-starter-test:2.6.3')
+
+    // Lombok
+    implementation ('org.projectlombok:lombok:1.18.22')
+    compileOnly ('org.projectlombok:lombok:1.18.22')
+    annotationProcessor ('org.projectlombok:lombok:1.18.22')
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor:2.6.3'
+    // DB
+    runtimeOnly ('mysql:mysql-connector-java:8.0.25') //mysql8
+    //runtimeOnly 'mysql:mysql-connector-java:5.1.47' //mysql5
+    implementation ('org.springframework.boot:spring-boot-starter-jdbc:2.6.3')
+    compile('org.springframework.boot:spring-boot-starter-data-jpa:2.6.3') //mysql 5버전의 경우 삭제.
+
+
+
+    // Web
+    implementation ('org.springframework.boot:spring-boot-starter-web:2.6.3')
+
+    // Security, Authentication
+    implementation('org.springframework.boot:spring-boot-starter-security:2.6.3')
+    compile(group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1')
+    compile('io.jsonwebtoken:jjwt:0.9.1')
+
+    implementation('org.springframework.boot:spring-boot-starter:2.6.3')
+    compile('org.springframework.boot:spring-boot-starter-web:2.6.3')
+
+
+
+
+
+}
+
+test {
+    useJUnitPlatform()
+}
