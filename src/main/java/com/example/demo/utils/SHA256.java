@@ -1,13 +1,19 @@
 package com.example.demo.utils;
 
+import com.example.demo.config.secret.Secret;
+
 import java.security.MessageDigest;
+import java.util.Base64;
 
 public class SHA256 {
+
     public SHA256() {
     }
 
     public static String encrypt(String planText) {
+
         try {
+//            secretKey= Base64.getEncoder().encodeToString(secretKey.getBytes());
             MessageDigest md = MessageDigest.getInstance("SHA-256");
             md.update(planText.getBytes());
             byte[] byteData = md.digest();

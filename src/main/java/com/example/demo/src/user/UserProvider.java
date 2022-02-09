@@ -73,6 +73,7 @@ public class UserProvider {
         try {
             encryptPwd = new SHA256().encrypt(postLoginReq.getPassword());
             System.out.println(encryptPwd);
+
         } catch (Exception ignored) {
             throw new BaseException(PASSWORD_DECRYPTION_ERROR);
         }

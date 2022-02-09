@@ -12,6 +12,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -32,6 +33,7 @@ public class JwtService {
         Map<String, Object> headers = new HashMap<>();
         headers.put("alg", "HS256");
         headers.put("typ", "JWT");
+        System.out.println(headers);
         Date now = new Date();
         return Jwts.builder()
                 .setHeader(headers)
@@ -58,6 +60,7 @@ public class JwtService {
      */
     public int getUserIdx() throws BaseException{
         //1. JWT 추출
+
         String accessToken = getJwt();
         if(accessToken == null || accessToken.length() == 0){
             throw new BaseException(EMPTY_JWT);
