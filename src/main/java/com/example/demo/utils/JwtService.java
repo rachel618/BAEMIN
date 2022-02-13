@@ -33,7 +33,6 @@ public class JwtService {
         Map<String, Object> headers = new HashMap<>();
         headers.put("alg", "HS256");
         headers.put("typ", "JWT");
-        System.out.println(headers);
         Date now = new Date();
         return Jwts.builder()
                 .setHeader(headers)

@@ -1,38 +1,38 @@
-package com.example.demo.src.user;
+package com.example.demo.src.store;
 
 import com.example.demo.config.BaseException;
-import com.example.demo.config.BaseResponseStatus;
-import com.example.demo.src.user.model.*;
+import com.example.demo.src.store.model.GetUserRes;
+import com.example.demo.src.store.model.User;
 import com.example.demo.utils.JwtService;
 import com.example.demo.utils.SHA256;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sun.tools.jconsole.JConsole;
+
 import java.util.List;
 
 import static com.example.demo.config.BaseResponseStatus.*;
 
 //Provider : Read의 비즈니스 로직 처리
 @Service
-public class UserProvider {
+public class StoreProvider {
 
-    private final UserDao userDao;
+    private final StoreDao storeDao;
     private final JwtService jwtService;
 
 
     final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    public UserProvider(UserDao userDao, JwtService jwtService) {
-        this.userDao = userDao;
+    public StoreProvider(StoreDao storeDao, JwtService jwtService) {
+        this.storeDao = storeDao;
         this.jwtService = jwtService;
     }
 
     public List<GetUserRes> getUsers() throws BaseException{
         try{
-            List<GetUserRes> getUserRes = userDao.getUsers();
+            List<GetUserRes> getUserRes = storeDao.getUsers();
             return getUserRes;
         }
         catch (Exception exception) {
@@ -42,7 +42,7 @@ public class UserProvider {
 
     public List<GetUserRes> getUsersByEmail(String email) throws BaseException{
         try{
-            List<GetUserRes> getUsersRes = userDao.getUsersByEmail(email);
+            List<GetUserRes> getUsersRes = storeDao.getUsersByEmail(email);
             return getUsersRes;
         }
         catch (Exception exception) {
@@ -52,7 +52,7 @@ public class UserProvider {
 
     public GetUserRes getUser(int userIdx) throws BaseException {
         try {
-            GetUserRes getUserRes = userDao.getUser(userIdx);
+            GetUserRes getUserRes = storeDao.getUser(userIdx);
             return getUserRes;
         } catch (Exception exception) {
             throw new BaseException(DATABASE_ERROR);
@@ -61,33 +61,11 @@ public class UserProvider {
 
     public int checkEmail(String email) throws BaseException{
         try{
-            return userDao.checkEmail(email);
+            return storeDao.checkEmail(email);
         } catch (Exception exception){
             throw new BaseException(DATABASE_ERROR);
         }
     }
 
-    public PostLoginRes logIn(PostLoginReq postLoginReq) throws BaseException{
-        User user = userDao.getPwd(postLoginReq);
-        String encryptPwd;
-        try {
-            encryptPwd = new SHA256().encrypt(postLoginReq.getPassword());
-            System.out.println(encryptPwd);
-
-        } catch (Exception ignored) {
-            throw new BaseException(PASSWORD_DECRYPTION_ERROR);
-        }
-
-        if(user.getPassword().equals(encryptPwd)){
-            int userIdx = user.getUserIdx();
-            String jwt = jwtService.createJwt(userIdx);
-
-            return new PostLoginRes(userIdx,jwt);
-        }
-        else{
-            throw new BaseException(FAILED_TO_LOGIN);
-        }
-
-    }
 
 }
