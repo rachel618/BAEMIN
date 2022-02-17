@@ -68,6 +68,10 @@ public class UserProvider {
     }
 
     public PostLoginRes logIn(PostLoginReq postLoginReq) throws BaseException{
+        // 해당 이메일로 가입된 계정 없을 때
+        if(checkEmail(postLoginReq.getEmail())!=1){
+            throw new BaseException(FAILED_TO_LOGIN);
+        }
         User user = userDao.getPwd(postLoginReq);
         String encryptPwd;
         try {
