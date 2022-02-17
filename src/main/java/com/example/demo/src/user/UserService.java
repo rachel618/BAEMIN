@@ -39,7 +39,7 @@ public class UserService {
             //암호화
             pwd = new SHA256().encrypt(postUserReq.getPassword());
             postUserReq.setPassword(pwd);
-            System.out.println(pwd);
+//            System.out.println(pwd);
 
         } catch (Exception ignored) {
             throw new BaseException(PASSWORD_ENCRYPTION_ERROR);

@@ -41,7 +41,7 @@ public enum BaseResponseStatus {
     // [POST] /users
     DUPLICATED_EMAIL(false, 3013, "중복된 이메일입니다."),
     FAILED_TO_LOGIN(false,3014,"없는 아이디거나 비밀번호가 틀렸습니다."),
-
+    FAILED_TO_LOGIN_INVALID_USER(false,3015, "휴면계정입니다."),
 
 
     /**
