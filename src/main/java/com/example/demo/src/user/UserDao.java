@@ -1,6 +1,7 @@
 package com.example.demo.src.user;
 
 
+import com.example.demo.src.store.model.GetStoreRes;
 import com.example.demo.src.user.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -23,7 +24,7 @@ public class UserDao {
         String getUsersQuery = "select * from User";
         return this.jdbcTemplate.query(getUsersQuery,
                 (rs,rowNum) -> new GetUserRes(
-                        rs.getInt("userIdx"),
+                        rs.getInt("storeIdx"),
                         rs.getString("userName"),
                         rs.getString("nickname"),
                         rs.getString("password"),

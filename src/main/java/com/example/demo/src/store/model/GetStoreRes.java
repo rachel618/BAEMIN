@@ -9,7 +9,7 @@ import java.sql.Time;
 @Getter
 @Setter
 @AllArgsConstructor
-public class Store {
+public class GetStoreRes {
     private int storeIdx;
     private String storeName;
     private String address;
