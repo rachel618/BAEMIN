@@ -38,7 +38,7 @@ public class UserController {
      * 회원 조회 API
      * [GET] /users
      * 회원 번호 및 이메일 검색 조회 API
-     * [GET] /users? Email=
+     * [GET] /users?Email=
      * @return BaseResponse<List<GetUserRes>>
      */
     //Query String
@@ -47,6 +47,7 @@ public class UserController {
     public BaseResponse<List<GetUserRes>> getUsers(@RequestParam(required = false) String Email) {
         try{
             if(Email == null){
+                System.out.println("email empty");
                 List<GetUserRes> getUsersRes = userProvider.getUsers();
                 return new BaseResponse<>(getUsersRes);
             }
@@ -127,18 +128,21 @@ public class UserController {
      * @return BaseResponse<String>
      */
     @ResponseBody
-    @PatchMapping("/{userIdx}/modify")
+    @PatchMapping("/{userIdx}")
     public BaseResponse<String> modifyUserName(@PathVariable("userIdx") int userIdx, @RequestBody User user){
         try {
             //jwt에서 idx 추출.
             int userIdxByJwt = jwtService.getUserIdx();
+
             //userIdx와 접근한 유저가 같은지 확인
+
             if(userIdx != userIdxByJwt){
                 return new BaseResponse<>(INVALID_USER_JWT);
             }
             //같다면 유저네임 변경
             PatchUserReq patchUserReq = new PatchUserReq(userIdx,user.getUserName());
             userService.modifyUserName(patchUserReq);
+
             String result = "";
         return new BaseResponse<>(result);
         } catch (BaseException exception) {

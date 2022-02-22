@@ -24,7 +24,7 @@ public class UserDao {
         String getUsersQuery = "select * from User";
         return this.jdbcTemplate.query(getUsersQuery,
                 (rs,rowNum) -> new GetUserRes(
-                        rs.getInt("storeIdx"),
+                        rs.getInt("userIdx"),
                         rs.getString("userName"),
                         rs.getString("nickname"),
                         rs.getString("password"),
@@ -92,6 +92,16 @@ public class UserDao {
         return this.jdbcTemplate.update(modifyUserNameQuery,modifyUserNameParams);
     }
 
+    public int getStatus(PostLoginReq postLoginReq){
+        String getPwdQuery = "select status from User where userEmail = ?";
+        String getPwdParams = postLoginReq.getEmail();
+
+        return this.jdbcTemplate.queryForObject(getPwdQuery,
+                int.class,
+                getPwdParams);
+
+
+    }
     public User getPwd(PostLoginReq postLoginReq){
         String getPwdQuery = "select userIdx, userName, nickname, password, phoneNum, userEmail, status from User where userEmail = ?";
         String getPwdParams = postLoginReq.getEmail();

@@ -52,6 +52,14 @@ public class JwtService {
         return request.getHeader("X-ACCESS-TOKEN");
     }
 
+//    public boolean validateJwt(String jwt){
+//        try{
+//            Jwts.parser().setSigningKey("hyuk".getBytes("UTF-8")).parseClaimsJws(jwt);
+//            return true;
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//    }
     /*
     JWT에서 userIdx 추출
     @return int

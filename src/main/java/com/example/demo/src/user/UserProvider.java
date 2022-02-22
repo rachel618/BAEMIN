@@ -74,10 +74,10 @@ public class UserProvider {
         }
 
         // 휴면계정 예외처리
-        User user = (User) userDao.getUsersByEmail(postLoginReq.getEmail());
-        if(user.getStatus() == 2)
+        if(userDao.getStatus(postLoginReq) == 2)
             throw new BaseException(FAILED_TO_LOGIN_INVALID_USER);
-        user = userDao.getPwd(postLoginReq);
+
+        User user = userDao.getPwd(postLoginReq);
         String encryptPwd;
         try {
             encryptPwd = new SHA256().encrypt(postLoginReq.getPassword());

@@ -18,7 +18,7 @@ public class Store {
     private int minPriceTakeout;
     private int deliveryTime;
     private int deliveryTip;
-//    private Time operatingHours;
+    private Time operatingHours;
     private String profileImageUrl;
     private String introduction;
     private String origin;
@@ -26,4 +26,5 @@ public class Store {
     private String newStore;
     private String couponAvailable;
     private String takeOut;
+    private double distance;
 }

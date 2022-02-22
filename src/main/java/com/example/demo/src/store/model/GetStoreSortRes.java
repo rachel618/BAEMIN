@@ -4,21 +4,17 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.sql.Time;
-
 @Getter
 @Setter
 @AllArgsConstructor
-public class GetStoreRes {
+public class GetStoreSortRes {
     private String storeName;
-    private String address;
+    private double rating;
     private int minPriceDelivery;
-    private int minPriceTakeout;
+    private double distance;
     private int deliveryTime;
     private int deliveryTip;
-    private String profileImageUrl;
-    private double rating;
     private String newStore;
     private String couponAvailable;
-    private String takeOut;
+
 }
