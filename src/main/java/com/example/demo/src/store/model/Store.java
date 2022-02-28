@@ -16,9 +16,11 @@ public class Store {
     private int categoryIdx;
     private int minPriceDelivery;
     private int minPriceTakeout;
-    private int deliveryTime;
-    private int deliveryTip;
-    private Time operatingHours;
+    private int minDeliveryTime;
+    private int mixDeliveryTime;
+    private int minDeliveryTip;
+    private int maxDeliveryTip;
+    private String operatingHours;
     private String profileImageUrl;
     private String introduction;
     private String origin;
@@ -27,4 +29,6 @@ public class Store {
     private String couponAvailable;
     private String takeOut;
     private double distance;
+    private int storeType;
+    private int numOfReviews;
 }

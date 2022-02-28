@@ -1,8 +1,9 @@
 package com.example.demo.src.store;
 
 import com.example.demo.config.BaseException;
-import com.example.demo.src.store.model.GetStoreRes;
-import com.example.demo.src.store.model.GetStoreSortRes;
+import com.example.demo.src.store.model.GetOneDetailRes;
+import com.example.demo.src.store.model.GetOneStoreRes;
+import com.example.demo.src.store.model.GetOneStoreSortRes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -20,10 +21,10 @@ public class StoreProvider {
         this.storeDao = storeDao;
     }
 
-    public List<GetStoreRes> getStores() throws BaseException {
+    public List<GetOneStoreRes> getOneStores() throws BaseException {
         try{
 //            System.out.println("flag 2");
-            List<GetStoreRes> getStoreRes = storeDao.getStores();
+            List<GetOneStoreRes> getStoreRes = storeDao.getStores();
             return getStoreRes;
         }
         catch (Exception exception) {
@@ -32,36 +33,47 @@ public class StoreProvider {
         }
     }
 
-    public List<GetStoreRes> getStoresByStoreName(String storeName) throws BaseException {
+    public List<GetOneStoreRes> getStoresByStoreName(String storeName) throws BaseException {
         try{
-            List<GetStoreRes> getStoreRes = storeDao.getStoresbyStoreName(storeName);
+            List<GetOneStoreRes> getStoreRes = storeDao.getStoresbyStoreName(storeName);
             return getStoreRes;
         }
         catch (Exception exception) {
             throw new BaseException(DATABASE_ERROR);
         }
     }
-
-    public List<GetStoreSortRes> getStoresSorted() throws BaseException{
+    // 기본순 정렬
+    public List<GetOneStoreSortRes> getOneStoresSorted() throws BaseException{
         try{
-            List<GetStoreSortRes> getStoreSortRes=storeDao.getStoresSorted();
-            return getStoreSortRes;
+            List<GetOneStoreSortRes> getOneStoreSortRes=storeDao.getOneStoresSorted();
+            return getOneStoreSortRes;
+        }
+        catch (Exception exception){
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+    // 순서 지정할 때
+    public List<GetOneStoreSortRes> getOneStoresSorted(String order) throws BaseException{
+        try{
+            System.out.println("flag");
+            List<GetOneStoreSortRes> getOneStoreSortRes=storeDao.getOneStoresSorted(order);
+            return getOneStoreSortRes;
         }
         catch (Exception exception){
             throw new BaseException(DATABASE_ERROR);
         }
     }
 
-    public List<GetStoreSortRes> getStoresSorted(String order) throws BaseException{
+    public GetOneDetailRes getOneStoresDetail(int storeIdx) throws BaseException {
         try{
-            List<GetStoreSortRes> getStoreSortRes=storeDao.getStoresSorted(order);
-            return getStoreSortRes;
+            System.out.println("error provider");
+            GetOneDetailRes getStoreRes = storeDao.getOneStoresDetail(storeIdx);
+            return getStoreRes;
         }
-        catch (Exception exception){
+        catch (Exception exception) {
+            System.out.println("error here");
             throw new BaseException(DATABASE_ERROR);
         }
     }
-
-
 
 }

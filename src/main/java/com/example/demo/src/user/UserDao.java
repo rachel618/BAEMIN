@@ -1,7 +1,6 @@
 package com.example.demo.src.user;
 
 
-import com.example.demo.src.store.model.GetStoreRes;
 import com.example.demo.src.user.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -85,13 +84,37 @@ public class UserDao {
 
     }
 
-    public int modifyUserName(PatchUserReq patchUserReq){
-        String modifyUserNameQuery = "update User set nickname = ? where userIdx = ? ";
-        Object[] modifyUserNameParams = new Object[]{patchUserReq.getUserName(), patchUserReq.getUserIdx()};
+    public int modifyUserNickName(PatchUserReq patchUserReq){
+        String modifyUserNickNameQuery = "update User set nickname = ? where userIdx = ? ";
+        Object[] modifyUserNameParams = new Object[]{patchUserReq.getValue(), patchUserReq.getUserIdx()};
 
-        return this.jdbcTemplate.update(modifyUserNameQuery,modifyUserNameParams);
+        return this.jdbcTemplate.update(modifyUserNickNameQuery,modifyUserNameParams);
+    }
+    public int modifyUserPassword(PatchUserPwdReq patchUserPwdReq){
+        String modifyUserPwdQuery = "update User set password = ? where userIdx = ? ";
+        Object[] modifyUserNameParams = new Object[]{patchUserPwdReq.getNewPwd(), patchUserPwdReq.getUserIdx()};
+
+        return this.jdbcTemplate.update(modifyUserPwdQuery,modifyUserNameParams);
     }
 
+    public int modifyUserPhoneNum(PatchUserReq patchUserReq){
+        String modifyUserPhoneNumQuery = "update User set phoneNum = ? where userIdx = ? ";
+        Object[] modifyUserNameParams = new Object[]{patchUserReq.getValue(), patchUserReq.getUserIdx()};
+
+        return this.jdbcTemplate.update(modifyUserPhoneNumQuery,modifyUserNameParams);
+    }
+    public int modifyUserEmailPromotion(PatchUserReq patchUserReq){
+        String modifyUserEmailPromotionQuery = "update User set emailPromotionAgree = ? where userIdx = ? ";
+        Object[] modifyUserNameParams = new Object[]{patchUserReq.getValue(), patchUserReq.getUserIdx()};
+
+        return this.jdbcTemplate.update(modifyUserEmailPromotionQuery,modifyUserNameParams);
+    }
+    public int modifyUserSnsPromotion(PatchUserReq patchUserReq){
+        String modifyUserSnsPromotionQuery = "update User set snsPromotionAgree = ? where userIdx = ? ";
+        Object[] modifyUserNameParams = new Object[]{patchUserReq.getValue(), patchUserReq.getUserIdx()};
+
+        return this.jdbcTemplate.update(modifyUserSnsPromotionQuery,modifyUserNameParams);
+    }
     public int getStatus(PostLoginReq postLoginReq){
         String getPwdQuery = "select status from User where userEmail = ?";
         String getPwdParams = postLoginReq.getEmail();
@@ -102,12 +125,12 @@ public class UserDao {
 
 
     }
-    public User getPwd(PostLoginReq postLoginReq){
+    public GetUserRes getPwd(PostLoginReq postLoginReq){
         String getPwdQuery = "select userIdx, userName, nickname, password, phoneNum, userEmail, status from User where userEmail = ?";
         String getPwdParams = postLoginReq.getEmail();
 
         return this.jdbcTemplate.queryForObject(getPwdQuery,
-                (rs,rowNum)-> new User(
+                (rs,rowNum)-> new GetUserRes(
                         rs.getInt("userIdx"),
                         rs.getString("userName"),
                         rs.getString("nickname"),
@@ -119,6 +142,13 @@ public class UserDao {
                 );
 
     }
+    public String getPwdbyUserIdx(int userIdx){
+        String getPwdQuery = "select password from User where userIdx = "+ userIdx ;
+        return (String) this.jdbcTemplate.queryForObject(getPwdQuery,String.class);
+    }
 
-
+    public int deleteUser(int userIdx){
+        String modifyUserEmailPromotionQuery = "update User set status = 3 where userIdx = " + userIdx;
+        return this.jdbcTemplate.update(modifyUserEmailPromotionQuery);
+    }
 }

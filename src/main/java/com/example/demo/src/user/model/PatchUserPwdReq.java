@@ -7,8 +7,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class PatchUserReq {
+public class PatchUserPwdReq {
     private int userIdx;
-    private int configuration;
-    private String value;
+    private String currentPwd;
+    private String newPwd;
 }

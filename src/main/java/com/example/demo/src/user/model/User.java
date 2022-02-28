@@ -19,7 +19,7 @@ public class User {
     private String phoneNum;
     private int status;
 //    private Integer point;
-//    private String emailPromotionAgree;
-//    private String snsPromotionAgree;
-//    private String userRating;
+    private String emailPromotionAgree;
+    private String snsPromotionAgree;
+    private String userRating;
 }

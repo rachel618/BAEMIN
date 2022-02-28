@@ -4,6 +4,7 @@ import com.example.demo.config.BaseException;
 import com.example.demo.src.user.model.*;
 import com.example.demo.utils.JwtService;
 import com.example.demo.utils.SHA256;
+import jdk.internal.vm.compiler.collections.EconomicMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,14 +55,49 @@ public class UserService {
         }
     }
 
-    public void modifyUserName(PatchUserReq patchUserReq) throws BaseException {
+    public void modifyUserInfo(PatchUserReq patchUserReq) throws BaseException {
         try{
-            int result = userDao.modifyUserName(patchUserReq);
+            int result;
+            if(patchUserReq.getConfiguration()==1)
+                result = userDao.modifyUserNickName(patchUserReq);
+            else if (patchUserReq.getConfiguration()==2)
+                result=userDao.modifyUserPhoneNum(patchUserReq);
+            else if(patchUserReq.getConfiguration()==3)
+                result=userDao.modifyUserEmailPromotion(patchUserReq);
+            else
+                result=userDao.modifyUserSnsPromotion(patchUserReq);
             if(result == 0){
                 throw new BaseException(MODIFY_FAIL_USERNAME);
             }
         } catch(Exception exception){
             throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
+    public void modifyUserPwd(PatchUserPwdReq patchUserPwdReq) throws BaseException{
+        String currentPassword=userDao.getPwdbyUserIdx(patchUserPwdReq.getUserIdx());
+        String inputValue=patchUserPwdReq.getCurrentPwd();
+        String encryptPwd;
+        try {
+            encryptPwd = new SHA256().encrypt(inputValue);
+        } catch (Exception ignored) {
+            throw new BaseException(PASSWORD_DECRYPTION_ERROR);
+        }
+
+        if(currentPassword.equals(encryptPwd)){
+           userDao.modifyUserPassword(patchUserPwdReq);
+        }
+        else{
+            throw new BaseException(FAILED_TO_MODIFY_PASSWORD);
+        }
+
+
+    }
+    public void deleteUser(int userIdx) throws BaseException{
+        try{
+            userDao.deleteUser(userIdx);
+        }catch(Exception exception){
+            throw new BaseException(FAILED_TO_DELETE_USER);
         }
     }
 }

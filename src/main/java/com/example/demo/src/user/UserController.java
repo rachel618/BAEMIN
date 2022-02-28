@@ -129,7 +129,7 @@ public class UserController {
      */
     @ResponseBody
     @PatchMapping("/{userIdx}")
-    public BaseResponse<String> modifyUserName(@PathVariable("userIdx") int userIdx, @RequestBody User user){
+    public BaseResponse<String> modifyUserInfo(@PathVariable("userIdx") int userIdx, @RequestBody PatchUserReq patchUserReq){
         try {
             //jwt에서 idx 추출.
             int userIdxByJwt = jwtService.getUserIdx();
@@ -140,9 +140,9 @@ public class UserController {
                 return new BaseResponse<>(INVALID_USER_JWT);
             }
             //같다면 유저네임 변경
-            PatchUserReq patchUserReq = new PatchUserReq(userIdx,user.getUserName());
-            userService.modifyUserName(patchUserReq);
-
+//
+//            PatchUserReq patchUserReq = new PatchUserReq(userIdx);
+            userService.modifyUserInfo(patchUserReq);
             String result = "";
         return new BaseResponse<>(result);
         } catch (BaseException exception) {
@@ -150,4 +150,38 @@ public class UserController {
         }
     }
 
+    @ResponseBody
+    @PatchMapping("/{userIdx}/password")
+    public BaseResponse<String> modifyUserPwd(@PathVariable("userIdx") int userIdx, @RequestBody PatchUserPwdReq patchUserPwdReq){
+        try {
+            //jwt에서 idx 추출.
+            int userIdxByJwt = jwtService.getUserIdx();
+
+            //userIdx와 접근한 유저가 같은지 확인
+            if(userIdx != userIdxByJwt){
+                return new BaseResponse<>(INVALID_USER_JWT);
+            }
+            //같다면 유저네임 변경
+            userService.modifyUserPwd(patchUserPwdReq);
+            String result = "비밀번호 변경 완료하였습니다.";
+            return new BaseResponse<>(result);
+        } catch (BaseException exception) {
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+    /** 회원 탈퇴 API
+    * [PATCH] /users/:userIdx/delete
+     * @return BaseResponse<>(result);
+     */
+    @ResponseBody
+    @PatchMapping("/{userIdx}/delete")
+    public BaseResponse<String> deleteUser (@PathVariable("userIdx") int userIdx){
+        try {
+            userService.deleteUser(userIdx);
+            String result="탈퇴 완료하였습니다.";
+            return new BaseResponse<>(result);
+        } catch (BaseException exception) {
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
 }

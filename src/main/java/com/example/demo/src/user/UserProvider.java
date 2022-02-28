@@ -77,7 +77,7 @@ public class UserProvider {
         if(userDao.getStatus(postLoginReq) == 2)
             throw new BaseException(FAILED_TO_LOGIN_INVALID_USER);
 
-        User user = userDao.getPwd(postLoginReq);
+        GetUserRes user = userDao.getPwd(postLoginReq);
         String encryptPwd;
         try {
             encryptPwd = new SHA256().encrypt(postLoginReq.getPassword());

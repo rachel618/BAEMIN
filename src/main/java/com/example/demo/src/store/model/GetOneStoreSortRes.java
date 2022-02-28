@@ -7,14 +7,16 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class GetStoreSortRes {
+public class GetOneStoreSortRes {
     private String storeName;
     private double rating;
     private int minPriceDelivery;
     private double distance;
-    private int deliveryTime;
-    private int deliveryTip;
+    private int minDeliveryTime;
+    private int maxDeliveryTime;
+    private int minDeliveryTip;
+    private int maxDeliveryTip;
     private String newStore;
     private String couponAvailable;
-
+//    private int storeType;
 }

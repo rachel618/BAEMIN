@@ -9,13 +9,13 @@ import java.sql.Time;
 @Getter
 @Setter
 @AllArgsConstructor
-public class GetStoreRes {
+public class GetOneStoreRes {
     private String storeName;
     private String address;
     private int minPriceDelivery;
     private int minPriceTakeout;
-    private int deliveryTime;
-    private int deliveryTip;
+    private int minDeliveryTime;
+    private int minDeliveryTip;
     private String profileImageUrl;
     private double rating;
     private String newStore;
