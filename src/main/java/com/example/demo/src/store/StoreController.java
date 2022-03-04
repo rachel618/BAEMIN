@@ -45,6 +45,22 @@ public class StoreController {
             return new BaseResponse<>((exception.getStatus()));
         }
     }
+    /**
+     * 카테고리별 매장조회
+     * @param
+     * @return store
+     */
+    @ResponseBody
+    @GetMapping("/OneStores/{categoryIdx}") // (GET) 127.0.0.1:9000/app/stores
+    public BaseResponse<List<GetOneStoreSortRes>> getStores(@PathVariable("categoryIdx") int categoryIdx) {
+        try {
+            System.out.println("error1");
+            List<GetOneStoreSortRes> getStoresRes = storeProvider.getOneStores(categoryIdx);
+            return new BaseResponse<>(getStoresRes);
+        } catch (BaseException exception) {
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
 
     /**
      * 배민1 음식점 정렬 API
@@ -67,7 +83,7 @@ public class StoreController {
         }
     }
 
-    /** 아직 테스트 안해봄
+    /** 아직 테스트 안해
      * 배민 1 음식점 상세조회 => 댓글 수 까지 나오는 일반 배달 response 와 같음
      * @param storeIdx
      * @return
@@ -77,7 +93,6 @@ public class StoreController {
     public BaseResponse<GetOneDetailRes> getOneStores(@PathVariable("storeIdx") int storeIdx) {
         // Get Users
         try{
-            System.out.println("error controller");
             GetOneDetailRes getOneDetailRes = storeProvider.getOneStoresDetail(storeIdx);
             return new BaseResponse<>(getOneDetailRes);
         } catch(BaseException exception){
@@ -85,5 +100,12 @@ public class StoreController {
         }
 
     }
+
+    /**
+     * 배달 음식점 정보조회 API
+     * @param storeIdx
+     * @return GetStoreRes
+     */
+
 
 }

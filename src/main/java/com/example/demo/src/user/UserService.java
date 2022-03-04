@@ -75,7 +75,7 @@ public class UserService {
     }
 
     public void modifyUserPwd(PatchUserPwdReq patchUserPwdReq) throws BaseException{
-        String currentPassword=userDao.getPwdbyUserIdx(patchUserPwdReq.getUserIdx());
+        String currentPassword=userDao.getPwdByUserIdx(patchUserPwdReq.getUserIdx());
         String inputValue=patchUserPwdReq.getCurrentPwd();
         String encryptPwd;
         try {

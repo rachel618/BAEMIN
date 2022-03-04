@@ -4,8 +4,10 @@ import com.google.code.geocoder.Geocoder;
 import com.google.code.geocoder.GeocoderRequestBuilder;
 import com.google.code.geocoder.model.*;
 
+import java.io.IOException;
+
 public class findGeoPoint {
-    public static Float[] geoCoding(String location) {
+    public static Float[] geoCoding(String location) throws IOException {
 
         if (location == null)
             return null;
@@ -16,7 +18,6 @@ public class findGeoPoint {
         // setLanguate : 인코딩 설정
         GeocoderRequest geocoderRequest = new GeocoderRequestBuilder().setAddress(location).setLanguage("ko").getGeocoderRequest();
         GeocodeResponse geocoderResponse;
-
         geocoderResponse = geocoder.geocode(geocoderRequest);
         if (geocoderResponse.getStatus() == GeocoderStatus.OK & !geocoderResponse.getResults().isEmpty()) {
             GeocoderResult geocoderResult=geocoderResponse.getResults().iterator().next();

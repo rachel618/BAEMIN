@@ -142,7 +142,7 @@ public class UserDao {
                 );
 
     }
-    public String getPwdbyUserIdx(int userIdx){
+    public String getPwdByUserIdx(int userIdx){
         String getPwdQuery = "select password from User where userIdx = "+ userIdx ;
         return (String) this.jdbcTemplate.queryForObject(getPwdQuery,String.class);
     }
@@ -150,5 +150,9 @@ public class UserDao {
     public int deleteUser(int userIdx){
         String modifyUserEmailPromotionQuery = "update User set status = 3 where userIdx = " + userIdx;
         return this.jdbcTemplate.update(modifyUserEmailPromotionQuery);
+    }
+    public String getPhoneNumByUserIdx(int userIdx){
+        String getPhoneNUmQuery="select phoneNum from User where userIdx=?"+ userIdx;
+        return this.jdbcTemplate.queryForObject(getPhoneNUmQuery,String.class);
     }
 }

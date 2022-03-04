@@ -12,7 +12,14 @@ import java.util.List;
 public class GetOrderRes {
     private int orderIdx;
     private String storeName;
+    private String profileImage;
     private List<String> menuNames;
-//    private int price;
+    private int totalPrice;
     private String orderDate;
+
+    public GetOrderRes(int orderIdx, int totalPrice, String orderDate) {
+        this.orderIdx= orderIdx;
+        this.totalPrice = totalPrice;
+        this.orderDate = orderDate;
+    }
 }

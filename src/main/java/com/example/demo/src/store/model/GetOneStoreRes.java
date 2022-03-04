@@ -13,8 +13,8 @@ public class GetOneStoreRes {
     private String storeName;
     private String address;
     private int minPriceDelivery;
-    private int minPriceTakeout;
     private int minDeliveryTime;
+    private int maxDeliveryTime;
     private int minDeliveryTip;
     private String profileImageUrl;
     private double rating;

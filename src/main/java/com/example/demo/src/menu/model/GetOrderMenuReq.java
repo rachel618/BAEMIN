@@ -1,4 +1,4 @@
-package com.example.demo.src.order.model;
+package com.example.demo.src.menu.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,10 +9,10 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
-public class GetOrderMenuRes {
-    private int orderIdx;
+public class GetOrderMenuReq {
     private String storeName;
-    private List<String> menuName;
+    private List<GetMenuOptionRes> menus;
     private int price;
-    private String orderDate;
+    private int deliveryTip;
+    private int totalPrice;
 }

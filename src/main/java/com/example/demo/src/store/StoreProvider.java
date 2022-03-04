@@ -21,14 +21,11 @@ public class StoreProvider {
         this.storeDao = storeDao;
     }
 
-    public List<GetOneStoreRes> getOneStores() throws BaseException {
+    public List<GetOneStoreSortRes> getOneStores(int categoryIdx) throws BaseException {
         try{
-//            System.out.println("flag 2");
-            List<GetOneStoreRes> getStoreRes = storeDao.getStores();
-            return getStoreRes;
-        }
-        catch (Exception exception) {
-//            System.out.println("error here");
+            List<GetOneStoreSortRes> getStores=storeDao.getOneStores(categoryIdx);
+            return getStores;
+        } catch (Exception exception){
             throw new BaseException(DATABASE_ERROR);
         }
     }
